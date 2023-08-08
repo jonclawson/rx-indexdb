@@ -1,0 +1,12 @@
+h1, h2 {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  color: skyblue;
+  background-color: black;
+}
+
+pre {
+  color: lime;
+}
