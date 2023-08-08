@@ -25,7 +25,7 @@ export class IDBService {
     this.schema = schema;
     this.initData = initData;
     this.version = version;
-    this.init();
+    this.init().subscribe((r) => console.log(r));
   }
 
   open() {
@@ -35,7 +35,8 @@ export class IDBService {
   init() {
     return new Observable((observe) => {
       this.open();
-      this.request.onerror = () => {
+      this.request.onerror = (event) => {
+        console.log(event);
         observe.next('failed to open db');
       };
       this.request.onsuccess = () => {
@@ -110,6 +111,7 @@ export class IDBService {
     return new Observable((observe) => {
       this.open();
       this.request.onerror = (event) => {
+        console.log(event);
         observe.next(event);
       };
       this.request.onsuccess = (event) => {
