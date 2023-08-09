@@ -119,7 +119,7 @@ export class IDBService {
         const transaction = db.transaction([store], 'readwrite');
 
         transaction.oncomplete = (event) => {
-          observe.next('items added');
+          observe.complete('items Complete');
         };
 
         transaction.onerror = (event) => {
@@ -128,7 +128,7 @@ export class IDBService {
 
         const objectStore = transaction.objectStore(store);
         data.forEach((customer) => {
-          const request = objectStore.add(customer);
+          const request = objectStore.add({ ...customer });
           request.onsuccess = (event) => {
             observe.next('item added');
           };
@@ -155,7 +155,7 @@ export class IDBService {
         const request = objectStore.get(data[keyPath]);
         request.onerror = (event) => {};
         request.onsuccess = (event) => {
-          const requestUpdate = objectStore.put(data);
+          const requestUpdate = objectStore.put({ ...data });
           requestUpdate.onerror = (event) => {};
           requestUpdate.onsuccess = (event) => {
             observe.next('data updated');
